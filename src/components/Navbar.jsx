@@ -71,7 +71,7 @@ export default function Navbar() {
           </button>
 
           <a
-            href="/book-now"
+            href="#contact"
             className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg duration-200"
           >
             {t.navbar.bookNow}

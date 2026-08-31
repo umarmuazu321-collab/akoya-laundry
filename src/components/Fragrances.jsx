@@ -82,7 +82,7 @@ export default function Fragrances() {
               </p>
 
               <a
-                href="/book-now"
+                href="#contact"
                 className="mt-6 inline-flex rounded-full bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-700 hover:shadow-lg hover:-translate-y-1 duration-200"
               >
                 {t.fragrances.add}

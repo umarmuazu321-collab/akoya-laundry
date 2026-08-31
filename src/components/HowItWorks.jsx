@@ -72,7 +72,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="mt-20 text-center animate-fadeInUp">
-          <a href="/book-now" className="inline-flex rounded-full bg-[#1C1C1C] px-8 py-3 text-lg font-medium text-[#D4AF37] transition-colors duration-300 hover:bg-[#D4AF37] hover:text-[#1C1C1C]">{t.howItWorks.schedulePickup}</a>
+          <a href="#contact" className="inline-flex rounded-full bg-[#1C1C1C] px-8 py-3 text-lg font-medium text-[#D4AF37] transition-colors duration-300 hover:bg-[#D4AF37] hover:text-[#1C1C1C]">{t.howItWorks.schedulePickup}</a>
         </div>
       </div>
     </section>

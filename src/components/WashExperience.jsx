@@ -71,7 +71,7 @@ export default function WashExperience() {
               </p>
 
               <a
-                href="/services"
+                href="#services"
                 className={`mt-6 inline-flex rounded-full px-6 py-3 text-sm font-semibold transition hover:shadow-lg hover:-translate-y-1 duration-200 ${
                   exp.isDark
                     ? "bg-white text-gray-900 hover:bg-yellow-400"

@@ -69,7 +69,7 @@ export default function Collections() {
                   </p>
 
                   <a
-                    href="/Services"
+                    
                     className="mt-5 inline-flex rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg duration-200"
                   >
                     {t.collections.discover} →

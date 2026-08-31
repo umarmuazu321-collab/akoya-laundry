@@ -63,7 +63,7 @@ export default function Club() {
               </div>
 
               <a
-                href="/book-now"
+                href="#contact"
                 className="mt-10 inline-flex rounded-full bg-white px-7 py-4 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg hover:-translate-y-1 duration-200"
               >
                 {t.club.requestInvitation}

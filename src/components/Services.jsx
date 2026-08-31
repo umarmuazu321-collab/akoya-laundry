@@ -246,7 +246,7 @@ export default function Services() {
               </p>
 
               <a
-                href="/book-now"
+                href="#contact"
                 className="mt-6 inline-flex rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg hover:-translate-y-1 duration-200"
               >
                 {t.services.order}
@@ -265,7 +265,7 @@ export default function Services() {
           </p>
 
           <a
-            href="/book-now"
+            href="#contact"
             className="mt-7 inline-flex rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg hover:-translate-y-1 duration-200"
           >
             {t.services.contactConcierge}
