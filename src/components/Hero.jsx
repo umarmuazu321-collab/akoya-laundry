@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 import { useLanguage } from "../context/LanguageContext"
 import { translations } from "../context/translations"
 
@@ -88,19 +89,19 @@ export default function Hero() {
               isRTL ? "flex-row-reverse" : ""
             }`}
           >
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="rounded-full bg-white px-8 py-4 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg hover:-translate-y-1 duration-300"
             >
               {t.navbar.schedulePickup}
-            </a>
+            </Link>
 
-            <a
-              href="#services"
+            <Link
+              to="/services"
               className="rounded-full border border-white/60 px-8 py-4 text-sm font-semibold text-white transition hover:bg-white hover:text-gray-900 hover:shadow-lg hover:-translate-y-1 duration-300"
             >
               {t.navbar.exploreServices}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

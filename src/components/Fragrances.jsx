@@ -1,8 +1,11 @@
+import { useDispatch } from "react-redux"
 import { useLanguage } from '../context/LanguageContext'
 import { translations } from '../context/translations'
+import { addItem } from '../store/orderSlice'
 
 export default function Fragrances() {
   const { language, isRTL } = useLanguage()
+  const dispatch = useDispatch()
   const t = translations[language]
 
   const fragrances = [
@@ -37,6 +40,8 @@ export default function Fragrances() {
       description: t.fragrances.marjanDesc,
     },
   ]
+
+  const franchisePrice = (price) => price.replace(/[^\d]/g, '').trim() ? Number.parseInt(price.replace(/[^\d]/g, ''), 10) : 0
 
   return (
     <section id="fragrances" className="bg-gray-50 py-24">
@@ -81,12 +86,13 @@ export default function Fragrances() {
                 {fragrance.description}
               </p>
 
-              <a
-                href="#contact"
+              <button
+                type="button"
+                onClick={() => dispatch(addItem({ id: `${fragrance.name}-fragrance`, name: fragrance.name, price: franchisePrice(fragrance.price), quantity: 1 }))}
                 className="mt-6 inline-flex rounded-full bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-700 hover:shadow-lg hover:-translate-y-1 duration-200"
               >
                 {t.fragrances.add}
-              </a>
+              </button>
             </div>
           ))}
         </div>

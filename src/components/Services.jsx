@@ -1,9 +1,13 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
 import { useLanguage } from '../context/LanguageContext'
 import { translations } from '../context/translations'
+import { addItem } from '../store/orderSlice'
 
 export default function Services() {
   const { language, isRTL } = useLanguage()
+  const dispatch = useDispatch()
   const t = translations[language]
   const [serviceFilter, setServiceFilter] = useState("All")
 
@@ -171,6 +175,11 @@ export default function Services() {
     },
   ]
 
+  const parsePrice = (value) => {
+    const numericValue = Number.parseInt(String(value).replace(/[^\d]/g, ''), 10)
+    return Number.isNaN(numericValue) ? 0 : numericValue
+  }
+
   const filteredServices =
     serviceFilter === "All"
       ? services
@@ -245,12 +254,13 @@ export default function Services() {
                 {service.description}
               </p>
 
-              <a
-                href="#contact"
+              <button
+                type="button"
+                onClick={() => dispatch(addItem({ id: `${service.name}-${service.price}`, name: service.name, price: parsePrice(service.price), quantity: 1 }))}
                 className="mt-6 inline-flex rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg hover:-translate-y-1 duration-200"
               >
                 {t.services.order}
-              </a>
+              </button>
             </div>
           ))}
         </div>
@@ -264,12 +274,12 @@ export default function Services() {
             {t.services.conciergeDesc}
           </p>
 
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             className="mt-7 inline-flex rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg hover:-translate-y-1 duration-200"
           >
             {t.services.contactConcierge}
-          </a>
+          </Link>
         </div>
       </div>
     </section>

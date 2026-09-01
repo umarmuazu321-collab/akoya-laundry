@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { translations } from '../context/translations'
 
@@ -37,15 +38,15 @@ export default function Footer() {
                 alt="AKOYA Luxury Laundry Logo"
                 className="h-10 w-10 rounded-lg object-cover"
               />
-              <a
-                href="#home"
+              <Link
+                to="/"
                 className="text-2xl font-bold hover:opacity-75 transition-opacity duration-200"
               >
                 AKOYA
                 <span className={`ml-1 font-light text-gray-400 ${isRTL ? 'ml-0 mr-1' : ''}`}>
                   Luxury Laundry
                 </span>
-              </a>
+              </Link>
             </div>
 
             <p className="mt-5 max-w-md leading-7 text-gray-400 hover:text-gray-300 transition-colors duration-200">
@@ -116,15 +117,15 @@ export default function Footer() {
             </p>
 
             <div className={`flex gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <a href="#" className="hover:text-gray-400 transition-colors duration-200">
+              <Link to="/" className="hover:text-gray-400 transition-colors duration-200">
                 {t.footer.privacyPolicy}
-              </a>
-              <a href="#" className="hover:text-gray-400 transition-colors duration-200">
+              </Link>
+              <Link to="/" className="hover:text-gray-400 transition-colors duration-200">
                 {t.footer.termsOfService}
-              </a>
-              <a href="#" className="hover:text-gray-400 transition-colors duration-200">
+              </Link>
+              <Link to="/" className="hover:text-gray-400 transition-colors duration-200">
                 {t.footer.sitemap}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

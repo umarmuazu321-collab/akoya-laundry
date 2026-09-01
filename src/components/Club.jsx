@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { useLanguage } from '../context/LanguageContext'
 import { translations } from '../context/translations'
 
@@ -62,12 +63,12 @@ export default function Club() {
                 ))}
               </div>
 
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="mt-10 inline-flex rounded-full bg-white px-7 py-4 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg hover:-translate-y-1 duration-200"
               >
                 {t.club.requestInvitation}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
