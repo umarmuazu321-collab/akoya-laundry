@@ -10,7 +10,9 @@ export const translations = {
     // Navbar
     navbar: {
       home: 'Home',
+      about: 'About',
       services: 'Services',
+      contact: 'Contact',
       collections: 'Collections',
       fragrances: 'Fragrances',
       howItWorks: 'How It Works',
@@ -196,7 +198,9 @@ export const translations = {
     // Navbar
     navbar: {
       home: 'الرئيسية',
+      about: 'من نحن',
       services: 'الخدمات',
+      contact: 'اتصل بنا',
       collections: 'المجموعات',
       fragrances: 'العطور',
       howItWorks: 'كيفية العمل',

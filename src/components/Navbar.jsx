@@ -28,8 +28,10 @@ export default function Navbar() {
   }
 
   const navLinks = [
-    { to: "/", label: t.navbar.home },
-    { to: "/services#services", label: t.navbar.services },
+    { to: "/", label: t.navbar.home || "Home" },
+    { to: "/about", label: t.navbar.about || "About" },
+    { to: "/services", label: t.navbar.services || "Services" },
+    { to: "/contact", label: t.navbar.contact || "Contact" },
     { to: "/about#collections", label: t.navbar.collections },
     { to: "/services#fragrances", label: t.navbar.fragrances },
     { to: "/about#how-it-works", label: t.navbar.howItWorks },
