@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { translations } from '../context/translations'
@@ -7,6 +8,8 @@ export default function Footer() {
   const { language, isRTL } = useLanguage()
   const t = translations[language]
   const logoUrl = "https://akoyaluxureylaundry.com/companylogo.png"
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false)
 
   const services = [
     "Premium Laundry",
@@ -61,12 +64,13 @@ export default function Footer() {
 
             <div className="mt-5 space-y-3 text-sm text-gray-400">
               {services.map((service) => (
-                <p
+                <Link
                   key={service}
+                  to="/services#services"
                   className="hover:text-white transition-colors duration-200 cursor-pointer"
                 >
                   {service}
-                </p>
+                </Link>
               ))}
             </div>
           </div>
@@ -99,16 +103,32 @@ export default function Footer() {
               {t.footer.newsletterDesc}
             </p>
 
-            <div className={`mt-4 flex gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault()
+                if (newsletterEmail.trim()) {
+                  setNewsletterSubmitted(true)
+                }
+              }}
+              className={`mt-4 flex gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
               <input
                 type="email"
+                value={newsletterEmail}
+                onChange={(event) => {
+                  setNewsletterEmail(event.target.value)
+                  setNewsletterSubmitted(false)
+                }}
                 placeholder={t.footer.enterEmail}
                 className={`flex-1 rounded-full border border-gray-700 bg-gray-900 px-4 py-3 text-sm text-white placeholder-gray-500 transition hover:border-gray-600 focus:border-yellow-400 focus:outline-none ${isRTL ? 'text-right' : ''}`}
               />
-              <button className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 duration-200">
+              <button type="submit" className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 duration-200">
                 {t.footer.subscribe}
               </button>
-            </div>
+            </form>
+            {newsletterSubmitted && (
+              <p className="mt-2 text-sm text-green-400">Thank you for subscribing.</p>
+            )}
           </div>
 
           <div className={`flex flex-col gap-3 text-sm text-gray-500 md:flex-row md:items-center md:justify-between ${isRTL ? 'flex-col-reverse text-right md:flex-row-reverse' : ''}`}>
@@ -117,13 +137,13 @@ export default function Footer() {
             </p>
 
             <div className={`flex gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <Link to="/" className="hover:text-gray-400 transition-colors duration-200">
+              <Link to="/privacy" className="hover:text-gray-400 transition-colors duration-200">
                 {t.footer.privacyPolicy}
               </Link>
-              <Link to="/" className="hover:text-gray-400 transition-colors duration-200">
+              <Link to="/terms" className="hover:text-gray-400 transition-colors duration-200">
                 {t.footer.termsOfService}
               </Link>
-              <Link to="/" className="hover:text-gray-400 transition-colors duration-200">
+              <Link to="/sitemap" className="hover:text-gray-400 transition-colors duration-200">
                 {t.footer.sitemap}
               </Link>
             </div>

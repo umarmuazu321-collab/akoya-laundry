@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { translations } from '../context/translations'
 
@@ -70,8 +71,8 @@ export default function WashExperience() {
                 {exp.price}
               </p>
 
-              <a
-                href="#services"
+              <Link
+                to="/services#services"
                 className={`mt-6 inline-flex rounded-full px-6 py-3 text-sm font-semibold transition hover:shadow-lg hover:-translate-y-1 duration-200 ${
                   exp.isDark
                     ? "bg-white text-gray-900 hover:bg-yellow-400"
@@ -79,7 +80,7 @@ export default function WashExperience() {
                 }`}
               >
                 {t.washExperience.continueToGarmentSelection}
-              </a>
+              </Link>
             </div>
           ))}
         </div>

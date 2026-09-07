@@ -170,7 +170,13 @@ export default function BookNow() {
                 {t.contact?.contactAkoya || 'Complete Your Booking'}
               </h2>
 
-              <form className="space-y-6 rounded-2xl bg-white p-8 shadow-sm">
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault()
+                  navigate('/contact')
+                }}
+                className="space-y-6 rounded-2xl bg-white p-8 shadow-sm"
+              >
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
                     <label className="block text-sm font-semibold text-gray-900">

@@ -14,17 +14,26 @@
 html {
   scroll-behavior: smooth;
   forced-color-adjust: none;
+  width: 100%;
+  max-width: 100%;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  width: 100vw;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   background: #ffffff;
   color: #111827;
 }
 
 #root {
+  width: 100vw;
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   background: #ffffff;
   color: #111827;

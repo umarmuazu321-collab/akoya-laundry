@@ -1,5 +1,5 @@
 import "./App.css"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
 import { Provider } from "react-redux"
 import { LanguageProvider } from "./context/LanguageContext"
 import { store } from "./store/store"
@@ -276,6 +276,45 @@ function ContactPage() {
   )
 }
 
+function NotFoundPage() {
+  return (
+    <AppShell>
+      <main className="flex min-h-[70vh] items-center justify-center px-6 pt-24 text-center">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-500">404</p>
+          <h1 className="mt-4 text-4xl font-bold text-gray-900">Page not found</h1>
+          <p className="mt-4 text-gray-600">The page you requested does not exist.</p>
+          <Link
+            to="/"
+            className="mt-8 inline-flex rounded-full bg-gray-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-700"
+          >
+            Return home
+          </Link>
+        </div>
+      </main>
+    </AppShell>
+  )
+}
+
+function InfoPage({ title }) {
+  return (
+    <AppShell>
+      <main className="flex min-h-[70vh] items-center justify-center px-6 pt-24 text-center">
+        <div>
+          <h1 className="text-4xl font-bold text-gray-900">{title}</h1>
+          <p className="mt-4 text-gray-600">AKOYA Luxury Laundry information page.</p>
+          <Link
+            to="/"
+            className="mt-8 inline-flex rounded-full bg-gray-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-700"
+          >
+            Return home
+          </Link>
+        </div>
+      </main>
+    </AppShell>
+  )
+}
+
 function App() {
   return (
     <Provider store={store}>
@@ -289,7 +328,10 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/book-now" element={<BookNow />} />
-            <Route path="*" element={<HomePage />} />
+            <Route path="/privacy" element={<InfoPage title="Privacy Policy" />} />
+            <Route path="/terms" element={<InfoPage title="Terms of Service" />} />
+            <Route path="/sitemap" element={<InfoPage title="Sitemap" />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </LanguageProvider>
       </BrowserRouter>

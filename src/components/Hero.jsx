@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useLanguage } from "../context/LanguageContext"
 import { translations } from "../context/translations"
 
@@ -7,6 +7,7 @@ export default function Hero() {
   const [activeSlide, setActiveSlide] = useState(0)
   const { language, isRTL } = useLanguage()
   const t = translations[language]
+  const navigate = useNavigate()
 
   const slides = [
     {
@@ -70,7 +71,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black/45" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-black/20" />
 
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pt-24">
+      <div className="relative z-10 flex h-full w-full items-center px-6 pt-24 md:px-10 lg:px-12">
         <div className="max-w-3xl animate-fadeInUp">
           <p className="mb-5 text-sm font-semibold uppercase tracking-[0.35em] text-yellow-400 animate-fadeIn">
             {slides[activeSlide].label}
@@ -147,6 +148,7 @@ export default function Hero() {
       <button
         type="button"
         aria-label="AKOYA home"
+        onClick={() => navigate("/")}
         className={`absolute bottom-6 z-20 flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10 shadow-2xl backdrop-blur-sm transition hover:scale-105 hover:bg-white/15 ${
           isRTL ? "left-6" : "right-6"
         }`}

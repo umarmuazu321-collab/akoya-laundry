@@ -58,8 +58,8 @@ export default function Login() {
 
         <div className="text-center mb-10">
 
-          <a
-            href="#"
+            <a
+              href="/"
             onClick={(e) => {
               e.preventDefault()
               navigate('/')
@@ -158,7 +158,7 @@ export default function Login() {
             </label>
 
             <a
-              href="#"
+              href="mailto:info@akoyaluxurylaundry.com?subject=Password%20reset%20request"
               className="text-yellow-400 hover:text-yellow-300 transition font-medium"
             >
               {t.login.forgotPassword}

@@ -1,16 +1,27 @@
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useLanguage } from "../context/LanguageContext"
 import { translations } from "../context/translations"
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
   const { language, isRTL, toggleLanguage } = useLanguage()
   const t = translations[language]
   const logoUrl = "https://akoyaluxureylaundry.com/companylogo.png"
   const cartCount = useSelector((state) => state.order.items.reduce((sum, item) => sum + item.quantity, 0))
+  const isHomePage = location.pathname === "/"
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 24)
+
+    handleScroll()
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const closeMenu = () => {
     setMenuOpen(false)
@@ -18,16 +29,23 @@ export default function Navbar() {
 
   const navLinks = [
     { to: "/", label: t.navbar.home },
-    { to: "/services", label: t.navbar.services },
-    { to: "/about", label: t.navbar.collections },
-    { to: "/services", label: t.navbar.fragrances },
-    { to: "/about", label: t.navbar.howItWorks },
-    { to: "/contact", label: t.navbar.club },
+    { to: "/services#services", label: t.navbar.services },
+    { to: "/about#collections", label: t.navbar.collections },
+    { to: "/services#fragrances", label: t.navbar.fragrances },
+    { to: "/about#how-it-works", label: t.navbar.howItWorks },
+    { to: "/about#club", label: t.navbar.club },
   ]
+
+  const lightNavbar = !isHomePage || isScrolled
+  const textColor = lightNavbar ? "text-gray-900" : "text-white"
+  const mutedTextColor = lightNavbar ? "text-gray-600" : "text-white/85"
+  const navBackground = lightNavbar
+    ? "bg-white/95 shadow-lg shadow-black/5 backdrop-blur-md"
+    : "bg-transparent"
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
-      <nav className={`pointer-events-auto mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <nav className={`pointer-events-auto flex w-full items-center justify-between px-4 py-5 transition-colors duration-300 sm:px-6 lg:px-10 ${navBackground} ${isRTL ? 'flex-row-reverse' : ''}`}>
         <Link
           to="/"
           onClick={closeMenu}
@@ -38,7 +56,7 @@ export default function Navbar() {
             alt="AKOYA Logo"
             className="h-10 w-10 rounded-full border border-white/30 bg-white/10 object-cover shadow-lg shadow-black/20"
           />
-          <span className="text-xl font-bold tracking-tight text-white md:text-2xl">
+          <span className={`text-xl font-bold tracking-tight md:text-2xl ${textColor}`}>
             AKOYA
           </span>
         </Link>
@@ -48,7 +66,7 @@ export default function Navbar() {
             <Link
               key={link.label}
               to={link.to}
-              className="text-sm font-medium text-white/85 transition-colors duration-200 hover:text-white"
+              className={`text-sm font-medium transition-colors duration-200 ${mutedTextColor} ${lightNavbar ? "hover:text-gray-900" : "hover:text-white"}`}
             >
               {link.label}
             </Link>
@@ -59,7 +77,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={toggleLanguage}
-            className="rounded-full border border-white/40 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition hover:bg-white/20"
+            className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] backdrop-blur-sm transition ${lightNavbar ? "border-gray-300 bg-gray-100 text-gray-900 hover:bg-gray-200" : "border-white/40 bg-white/10 text-white hover:bg-white/20"}`}
           >
             {language === 'en' ? 'العربية' : 'English'}
           </button>
@@ -67,14 +85,14 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => navigate('/login')}
-            className="rounded-full border border-white/40 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm transition hover:bg-white/20"
+            className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] backdrop-blur-sm transition ${lightNavbar ? "border-gray-300 bg-gray-100 text-gray-900 hover:bg-gray-200" : "border-white/40 bg-white/10 text-white hover:bg-white/20"}`}
           >
             {t.navbar.clientLogin}
           </button>
 
           <button
             type="button"
-            onClick={() => navigate('/contact')}
+            onClick={() => navigate('/book-now')}
             className="relative rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg duration-200"
           >
             {t.navbar.bookNow}
@@ -89,7 +107,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
-          className="rounded-lg p-2 text-xl text-white transition-colors hover:bg-white/10 md:hidden"
+          className={`rounded-lg p-2 text-xl transition-colors md:hidden ${textColor} ${lightNavbar ? "hover:bg-gray-100" : "hover:bg-white/10"}`}
           aria-label="Toggle menu"
         >
           {menuOpen ? "✕" : "☰"}
@@ -137,7 +155,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => {
-                navigate('/contact')
+                navigate('/book-now')
                 closeMenu()
               }}
               className="relative rounded-full bg-white px-5 py-3 text-center font-semibold text-gray-900 hover:bg-yellow-400 transition-colors"
