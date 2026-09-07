@@ -34,20 +34,18 @@ export default function Login() {
 
     const newErrors = {}
 
-    if (!formData.email) {
-      newErrors.email = t.contact.errorMsg
+    if (!formData.email.trim()) {
+      newErrors.email = 'Please enter your email or phone number.'
     }
 
-    if (!formData.password) {
-      newErrors.password = t.contact.errorMsg
+    if (!formData.password.trim()) {
+      newErrors.password = 'Please enter your password.'
     }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
       return
     }
-
-    console.log('Login form submitted:', formData)
 
     alert('Frontend login form ready for backend integration')
   }

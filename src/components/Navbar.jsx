@@ -75,7 +75,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className={`hidden items-center gap-3 md:flex ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`hidden items-center gap-3 lg:flex ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             type="button"
             onClick={toggleLanguage}
@@ -109,7 +109,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`rounded-lg p-2 text-xl transition-colors md:hidden ${textColor} ${lightNavbar ? "hover:bg-gray-100" : "hover:bg-white/10"}`}
+          className={`rounded-lg p-2 text-xl transition-colors lg:hidden ${textColor} ${lightNavbar ? "hover:bg-gray-100" : "hover:bg-white/10"}`}
           aria-label="Toggle menu"
         >
           {menuOpen ? "✕" : "☰"}
@@ -117,7 +117,7 @@ export default function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className={`border-t border-white/10 bg-black/80 px-6 py-5 backdrop-blur-md md:hidden animate-slideDown ${isRTL ? 'text-right' : ''}`}>
+        <div className={`border-t border-white/10 bg-black/80 px-6 py-5 backdrop-blur-md lg:hidden animate-slideDown ${isRTL ? 'text-right' : ''}`}>
           <div className={`flex flex-col gap-5 ${isRTL ? 'flex-col-reverse' : ''}`}>
             {navLinks.map((link) => (
               <Link

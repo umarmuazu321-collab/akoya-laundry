@@ -1,17 +1,20 @@
 import { useState } from "react"
+import { useLocation } from 'react-router-dom'
 import { useLanguage } from '../context/LanguageContext'
 import { translations } from '../context/translations'
 
 export default function ContactForm({ services }) {
   const { language, isRTL } = useLanguage()
   const t = translations[language]
+  const location = useLocation()
+  const bookingDetails = location.state?.bookingDetails
 
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    service: "",
-    date: "",
-    address: "",
+    name: bookingDetails?.name || "",
+    phone: bookingDetails?.phone || "",
+    service: bookingDetails?.service || "",
+    date: bookingDetails?.date || "",
+    address: bookingDetails?.address || "",
     message: "",
   })
   const [formError, setFormError] = useState("")
@@ -34,14 +37,15 @@ export default function ContactForm({ services }) {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    if (
-      !formData.name.trim() ||
-      !formData.phone.trim() ||
-      !formData.service ||
-      !formData.date ||
-      !formData.address.trim()
-    ) {
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.service || !formData.date || !formData.address.trim()) {
       setFormError("Please fill in all required fields.")
+      return
+    }
+
+    const normalizedPhone = formData.phone.replace(/[\s()+-]/g, "")
+
+    if (!/^\d{7,15}$/.test(normalizedPhone)) {
+      setFormError("Please enter a valid phone number.")
       return
     }
 
@@ -237,6 +241,13 @@ Thank you.
                     <option value="">
                       {t.contact.selectService}
                     </option>
+
+                    {formData.service &&
+                      !services.some((service) => service.name === formData.service) && (
+                        <option value={formData.service}>
+                          {formData.service}
+                        </option>
+                      )}
 
                     {services.map((service) => (
                       <option

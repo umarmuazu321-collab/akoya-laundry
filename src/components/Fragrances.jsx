@@ -46,10 +46,10 @@ export default function Fragrances() {
     },
   ]
 
-  const franchisePrice = (price) =>
-    price.replace(/[^\d]/g, "").trim()
-      ? Number.parseInt(price.replace(/[^\d]/g, ""), 10)
-      : 0
+  const fragrancePrice = (price) => {
+    const firstPrice = price.match(/\d+/)?.[0]
+    return firstPrice ? Number.parseInt(firstPrice, 10) : 0
+  }
 
   return (
     <section
@@ -118,7 +118,7 @@ export default function Fragrances() {
                     addItem({
                       id: `${fragrance.name}-fragrance`,
                       name: fragrance.name,
-                      price: franchisePrice(fragrance.price),
+                      price: fragrancePrice(fragrance.price),
                       quantity: 1,
                     })
                   )

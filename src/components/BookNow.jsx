@@ -21,6 +21,70 @@ export default function BookNow() {
   ]
 
   const [selectedService, setSelectedService] = useState(null)
+  const [bookingDetails, setBookingDetails] = useState({
+    name: '',
+    phone: '',
+    address: '',
+    date: '',
+  })
+  const [bookingError, setBookingError] = useState('')
+
+  const handleBookingChange = (event) => {
+    const { name, value } = event.target
+
+    setBookingDetails((previousDetails) => ({
+      ...previousDetails,
+      [name]: value,
+    }))
+
+    if (bookingError) {
+      setBookingError('')
+    }
+  }
+
+  const handleBookingSubmit = (event) => {
+    event.preventDefault()
+
+    const hasMissingDetails = Object.values(bookingDetails).some(
+      (value) => !value.trim()
+    )
+
+    if (hasMissingDetails) {
+      setBookingError('Please complete all required booking details.')
+      return
+    }
+
+    const normalizedPhone = bookingDetails.phone.replace(/[\s()+-]/g, '')
+
+    if (!/^\d{7,15}$/.test(normalizedPhone)) {
+      setBookingError('Please enter a valid phone number.')
+      return
+    }
+
+    const bookingDate = new Date(`${bookingDetails.date}T00:00:00`)
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    if (Number.isNaN(bookingDate.getTime())) {
+      setBookingError('Please enter a valid date.')
+      return
+    }
+
+    if (bookingDate < today) {
+      setBookingError('Please choose today or a future date.')
+      return
+    }
+
+    setBookingError('')
+    navigate('/contact', {
+      state: {
+        bookingDetails: {
+          ...bookingDetails,
+          service: selectedService?.name || '',
+        },
+      },
+    })
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -171,10 +235,7 @@ export default function BookNow() {
               </h2>
 
               <form
-                onSubmit={(event) => {
-                  event.preventDefault()
-                  navigate('/contact')
-                }}
+                onSubmit={handleBookingSubmit}
                 className="space-y-6 rounded-2xl bg-white p-8 shadow-sm"
               >
                 <div className="grid gap-6 md:grid-cols-2">
@@ -183,7 +244,11 @@ export default function BookNow() {
                       {t.contact?.fullNameRequired || 'Full Name *'}
                     </label>
                     <input
+                      id="booking-name"
                       type="text"
+                      name="name"
+                      value={bookingDetails.name}
+                      onChange={handleBookingChange}
                       placeholder={t.contact?.enterYourName || 'Enter your name'}
                       className={`mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-200 ${isRTL ? 'text-right' : ''}`}
                     />
@@ -194,7 +259,11 @@ export default function BookNow() {
                       {t.contact?.phoneRequired || 'Phone Number *'}
                     </label>
                     <input
+                      id="booking-phone"
                       type="tel"
+                      name="phone"
+                      value={bookingDetails.phone}
+                      onChange={handleBookingChange}
                       placeholder="+974 0000 0000"
                       className={`mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-200 ${isRTL ? 'text-right' : ''}`}
                     />
@@ -206,7 +275,11 @@ export default function BookNow() {
                     {t.contact?.addressRequired || 'Pickup Address *'}
                   </label>
                   <input
+                    id="booking-address"
                     type="text"
+                    name="address"
+                    value={bookingDetails.address}
+                    onChange={handleBookingChange}
                     placeholder={t.contact?.enterAddress || 'Enter your pickup address'}
                     className={`mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-200 ${isRTL ? 'text-right' : ''}`}
                   />
@@ -217,10 +290,21 @@ export default function BookNow() {
                     {t.contact?.dateRequired || 'Preferred Date *'}
                   </label>
                   <input
+                    id="booking-date"
                     type="date"
+                    name="date"
+                    value={bookingDetails.date}
+                    onChange={handleBookingChange}
+                    min={new Date().toISOString().split('T')[0]}
                     className={`mt-2 w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-200 ${isRTL ? 'text-right' : ''}`}
                   />
                 </div>
+
+                {bookingError && (
+                  <p className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+                    {bookingError}
+                  </p>
+                )}
 
                 <div className="flex justify-between gap-4 pt-6">
                   <button

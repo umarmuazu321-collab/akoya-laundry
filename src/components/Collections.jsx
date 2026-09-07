@@ -1,5 +1,6 @@
 import { useLanguage } from '../context/LanguageContext'
 import { translations } from '../context/translations'
+import { Link } from 'react-router-dom'
 
 const collectionImages = {
   platinum: "https://akoyaluxureylaundry.com/home/platinumCare.jpg",
@@ -68,12 +69,12 @@ export default function Collections() {
                     {collection.text}
                   </p>
 
-                  <a
-                    
+                  <Link
+                    to="/services"
                     className="mt-5 inline-flex rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 transition hover:bg-yellow-400 hover:shadow-lg duration-200"
                   >
                     {t.collections.discover} →
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
